@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20180305081222) do
     t.string "name", null: false
     t.string "description", null: false
     t.string "filepicker_url", default: ""
-    t.decimal "price", precision: 10, scale: 2, null: false
+    t.decimal "price", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
