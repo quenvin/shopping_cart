@@ -1,0 +1,10 @@
+<h1>My Cart</h1>
+
+<div class="myorder">
+  <p id="order"><strong><%= @order.status %></strong>
+    <%= link_to 'Edit', edit_user_order_path(@order) %>
+    <hr>
+  </p>
+</div>
+
+<%= link_to 'Order History', user_orders_path%>
