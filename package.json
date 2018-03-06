@@ -2,6 +2,7 @@
   "name": "shopping_cart",
   "private": true,
   "dependencies": {
-    "bootstrap": "^4.0.0"
+    "bootstrap": "^3.3.7",
+    "startbootstrap-shop-homepage": "^4.0.0"
   }
 }
