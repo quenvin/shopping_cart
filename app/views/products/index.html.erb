@@ -1,1 +1,34 @@
-Product index page
+<div class="container">
+  <% if current_user.try(:admin?) %>
+  <div class="row">
+    <b>Admin controls here, able to perform the following</b> </br>
+    I can view a list of products</br>
+    I can view details of a product</br>
+    I can create a product</br>
+    I can edit the details of a product</br>
+    I can delete a product</br></br>
+
+
+    I can view a list of pending orders</br>
+    I can change the status of an order, pending, complete, rejected, failed</br>
+  
+  </div>
+  <% end%>
+
+  <div class="row">
+    <div class="col testbg">
+      rotating banner here </br>
+      Hot deals, lobangz </br>
+      use carosel from bootstrap
+    
+    </div>
+  </div>
+
+  <div class="row">
+    Display all products here
+  
+  </div>
+
+
+
+</div>
