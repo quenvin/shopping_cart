@@ -8,3 +8,7 @@
 
 User.create!(email: 'admin@admin.com', password: '123456', name: 'admin', admin: true)
 User.create!(email: 'user@user.com', password: '123456', name: 'user', admin: false)
+
+Product.create(name: 'Product 1', description: "Description for Product 1", price: 11.50)
+Product.create(name: 'Product 2', description: "Description for Product 2", price: 50.60)
+Product.create(name: 'Product 3', description: "Description for Product 3", price: 150.68)
