@@ -1,10 +1,26 @@
 <h1>My Cart</h1>
 
-<div class="myorder">
-  <p id="order"><strong><%= @order.status %></strong>
-    <%= link_to 'Edit', edit_user_order_path(@order) %>
-    <hr>
-  </p>
-</div>
+<% total_price = 0 %>
+<% @uniq_products.each do |product| %>
 
+  <div class="myproducts">
+    <p id="product">
+      <strong><%= product.name %> : </strong>
+      <%= number_to_currency(price =product.price) %>
+      qty: <%= qty = @products.where(id: product).count %>
+      total: <%= number_to_currency(subtotal = price * qty) %>
+      <% total_price = total_price + subtotal %>
+    </p>
+    <hr>
+
+  </div>
+<% end %>
+<u>
+<strong>
+  Grand Total: 
+  <%= number_to_currency(total_price) %>
+</strong>
+</u>
+<br>
+<hr>
 <%= link_to 'Order History', user_orders_path%>

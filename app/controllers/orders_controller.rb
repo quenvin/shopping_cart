@@ -7,7 +7,8 @@ class OrdersController < ApplicationController
   end
 
   def edit
-    @order = current_user.orders.last
+    @products = current_user.orders.last.products.all
+    @uniq_products = current_user.orders.last.products.uniq
   end
 
 end

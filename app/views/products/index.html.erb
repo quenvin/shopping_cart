@@ -1,17 +1,11 @@
 <div class="container">
   <% if current_user.try(:admin?) %>
   <div class="row">
-    <b>Admin controls here, able to perform the following</b> </br>
-    I can view a list of products</br>
-    I can view details of a product</br>
-    I can create a product</br>
-    I can edit the details of a product</br>
-    I can delete a product</br></br>
-
-
-    I can view a list of pending orders</br>
-    I can change the status of an order, pending, complete, rejected, failed</br>
   
+    <strong><u>Admin controls</u></strong>
+    Add a new product here
+    <%= button_to 'Add product', new_product_path, method: :get %>
+
   </div>
   <% end%>
 

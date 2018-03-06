@@ -1,15 +1,19 @@
 class ProductsController < ApplicationController
   
   before_action :authenticate_user!
-
-  before_action :authenticate_admin!, :except => [:show, :index]
   def index
+    @products = Product.all
   end
 
   def new
+    @products = Product.new
   end
 
   def create
+    @products = Product.create(product_params)
+    if @products.save 
+      redirect_to root_path
+    end
   end
 
   def show
@@ -22,6 +26,12 @@ class ProductsController < ApplicationController
   end
 
   def destroy
+  end
+
+  private
+
+  def product_params
+    params.require(:product).permit(:name, :filepicker_url, :description, :price)
   end
 
 end

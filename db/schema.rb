@@ -35,7 +35,8 @@ ActiveRecord::Schema.define(version: 20180305081222) do
   create_table "products", force: :cascade do |t|
     t.string "name", null: false
     t.string "description", null: false
-    t.money "price", scale: 2, null: false
+    t.string "filepicker_url", default: ""
+    t.decimal "price", precision: 10, scale: 2, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
