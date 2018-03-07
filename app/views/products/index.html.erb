@@ -1,16 +1,14 @@
 <div class="container">
   <% if current_user.try(:admin?) %>
   <div class="row">
-  
-    <strong><u>Admin controls</u></strong>
-    Add a new product here
+    admin Console
     <%= button_to 'Add product', new_product_path, method: :get %>
 
   </div>
   <% end%>
 
   <div class="row">
-    <div class="col testbg">
+    <div class="col-md-12 testbg">
       rotating banner here </br>
       Hot deals, lobangz </br>
       use carosel from bootstrap
@@ -19,11 +17,35 @@
   </div>
 
   <div class="row">
-    Display all products here
+
+    <div class="col-md-12 d-flex justify-content-center">
+      <h2><strong><u>The Marketplace</u></strong></h2>
+    </div>
+
+    <% @products.each do |p| %>
+      <div class="col-md-4 d-flex flex-column justify-content-between">
+        <%= filestack_image p.filepicker_url, transform: filestack_transform.resize(width:250, height:250), class: "card-img-top" %>
+
+        <div>
+          <h3 class="card-title"><%= p.name %></h3>
+          <h6 class="card-subtitle mb-2 text-muted"><%= number_to_currency(p.price) %></h6>
+          <p class="card-text"><%= p.description %></p>
+        </div>
+        
+        <div>
+          <table>
+            <tr>
+              <% if current_user.try(:admin?) %>
+                <td><%= button_to 'Edit', edit_product_path(p), method: :get, class: "btn btn-outline-primary" %></td>
+                <td><%= button_to 'Destroy', p, method: :delete, class: "btn btn-danger", data: { confirm: 'This will remove the product, are you sure you want to proceed' } %></td>
+              <% end%>
+            </tr>
+          </table>
+        </div>
+        
+      </div>
+    <% end %>
   
   </div>
 
-
-
 </div>
-

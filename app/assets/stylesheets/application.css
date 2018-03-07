@@ -13,71 +13,16 @@
  *= require_tree .
  *= require_self
  */
-
 body{
-  background-color: #f5f8fa;
-  margin:0;
+  background-image: url('background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.navigation-bar{
-  display:grid;
-  height: 50px;
-  background-color: #E5E4E2;
-  padding: 0 10vw 0 10vw;
-  grid-template-columns: 1fr 1fr 6fr 1fr 1fr 1fr;
-  grid-template-areas: "Home Products Search Cart Login Sign_up"
+.navbar-items{
+  margin-left: 0.5em;
 }
 
-.nav-Home{
-  grid-area: Home;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  margin: 1.5px;
-}
-
-.nav-Products{
-  grid-area: Products;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  margin: 1.5px;
-}
-
-.nav-Search{
-  grid-area: Search;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  margin: 1.5px;
-}
-
-.nav-Cart{
-  grid-area: Cart;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  margin: 1.5px;
-}
-
-.nav-Login{
-  grid-area: Login;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  margin: 1.5px;
-}
-
-.nav-Signup{
-  grid-area: Sign_up;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  margin: 1.5px;
+[class*="col-"] {
+  padding: 2em 3em 2em 3em;
 }
