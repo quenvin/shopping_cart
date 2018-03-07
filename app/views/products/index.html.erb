@@ -88,6 +88,8 @@
               <% if current_user.try(:admin?) %>
                 <td><%= button_to 'Edit', edit_product_path(p), method: :get, class: "btn btn-outline-primary" %></td>
                 <td><%= button_to 'Destroy', p, method: :delete, class: "btn btn-danger", data: { confirm: 'This will remove the product, are you sure you want to proceed' } %></td>
+              <% else %>
+                <td><%= link_to 'Add to cart', add_cart_product_path(p), method: :put %></td>
               <% end%>
             </tr>
           </table>
