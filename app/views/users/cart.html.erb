@@ -1,0 +1,41 @@
+<h1>Cart</h1>
+
+<% if @cart.empty? %>
+  <h3>No Item In The Cart</h3>
+<% else %>
+  <table>
+    <tr>
+      <th>Product Name</th>
+      <th>Qty.</th>
+      <th>Price</th>
+      <th>Subtotal</th>
+    </tr>
+    <% total = 0 %>
+    <% @cart.each do |product_id, qty| %>
+      <tr>
+        <td>
+          <%=Product.find(product_id).name %>
+        </td>
+        <td>
+          <%=qty %>
+        </td>
+        <td>
+          <%= number_to_currency(price = Product.find(product_id).price) %>
+        </td>
+        <td>
+          <%= number_to_currency(subtotal = price * qty.to_i) %>
+          <% total += subtotal %>
+        </td>
+        <td>
+          <%= link_to 'Add to cart', add_cart_product_path(product_id), method: :put %>
+        </td>
+        <% qty = $redis.hget current_user.id, product_id %>
+        <td>
+          <%= link_to 'Remove from cart', remove_cart_product_path(product_id), method: :put %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+  <br>
+  <h3>TOTAL: <%= number_to_currency(total) %></h3>
+<% end %>
