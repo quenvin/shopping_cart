@@ -4,6 +4,10 @@ class UsersController < ApplicationController
   def index
   end
 
+  def cart
+    @cart = $redis.hgetall current_user.id
+  end
+
 
 
 end

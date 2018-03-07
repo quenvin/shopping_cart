@@ -13,9 +13,18 @@ Product.create(name: 'Product 1', description: "Description for Product 1", pric
 Product.create(name: 'Product 2', description: "Description for Product 2", price: 50.60)
 Product.create(name: 'Product 3', description: "Description for Product 3", price: 150.68)
 
-Order.create(user_id: 2, status: 'Pending')
+Order.create(user_id: 2, status: 'Delivered')
+Order.create(user_id: 2, status: 'Shipping')
 
 Ordersproduct.create(product_id: 1, order_id: 1)
 Ordersproduct.create(product_id: 2, order_id: 1)
 Ordersproduct.create(product_id: 3, order_id: 1)
 Ordersproduct.create(product_id: 3, order_id: 1)
+
+Ordersproduct.create(product_id: 1, order_id: 2)
+Ordersproduct.create(product_id: 1, order_id: 2)
+Ordersproduct.create(product_id: 1, order_id: 2)
+Ordersproduct.create(product_id: 1, order_id: 2)
+Ordersproduct.create(product_id: 2, order_id: 2)
+Ordersproduct.create(product_id: 3, order_id: 2)
+Ordersproduct.create(product_id: 3, order_id: 2)

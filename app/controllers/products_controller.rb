@@ -37,6 +37,19 @@ class ProductsController < ApplicationController
     end
   end
 
+  def add_cart
+    $redis.hincrby current_user.id, params[:id], 1
+    redirect_to cart_user_path(current_user)
+  end
+
+  def remove_cart
+    count = $redis.hincrby current_user.id, params[:id], -1
+    if count == 0
+      $redis.hdel current_user.id, params[:id]
+    end
+    redirect_to cart_user_path(current_user)
+  end
+
   private
 
   def product_params
