@@ -1,1 +1,24 @@
 <h1>Order History</h1>
+
+<table>
+  <% @orders.each do |order| %>
+    <tr>
+      <td>Order Number: </td>
+      <td><%= order.id %></td>
+    </tr>
+    <tr>
+      <td>Status: </td>
+      <td><%= order.status %></td>
+    </tr>
+    <tr>
+      <td>Payment Date: </td>
+      <td><%= order.created_at %></td>
+    </tr>
+    <tr>
+      <td><%= link_to 'View Details', user_order_path(current_user, order) %></td>
+    </tr>
+    <tr>
+      <td colspan='2'><hr></td>
+    </tr>
+  <% end %>
+</table>

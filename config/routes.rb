@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   end
 
   resources :users do
-    resources :orders
+    resources :orders, except: [:edit, :destroy]
     get 'cart', on: :member
   end
 
