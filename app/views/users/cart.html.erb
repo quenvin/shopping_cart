@@ -39,3 +39,5 @@
   <br>
   <h3>TOTAL: <%= number_to_currency(total) %></h3>
 <% end %>
+<br>
+<%= link_to 'Order History', user_orders_path(current_user)%>
