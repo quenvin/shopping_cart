@@ -12,3 +12,10 @@ User.create!(email: 'user@user.com', password: '123456', name: 'user', admin: fa
 Product.create(name: 'Product 1', description: "Description for Product 1", price: 11.50)
 Product.create(name: 'Product 2', description: "Description for Product 2", price: 50.60)
 Product.create(name: 'Product 3', description: "Description for Product 3", price: 150.68)
+
+Order.create(user_id: 2, status: 'Pending')
+
+Ordersproduct.create(product_id: 1, order_id: 1)
+Ordersproduct.create(product_id: 2, order_id: 1)
+Ordersproduct.create(product_id: 3, order_id: 1)
+Ordersproduct.create(product_id: 3, order_id: 1)
