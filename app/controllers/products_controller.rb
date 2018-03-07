@@ -3,10 +3,9 @@ class ProductsController < ApplicationController
   before_action :authenticate_user!
   def index
     @products = Product.all
-  end
-
-  def new
-    @products = Product.new
+    @product = Product.new
+    @category = Category.new
+    @existing_categories = Category.all
   end
 
   def create
