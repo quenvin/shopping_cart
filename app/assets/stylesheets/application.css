@@ -24,5 +24,11 @@ body{
 }
 
 [class*="col-"] {
-  padding: 2em 3em 2em 3em;
+  padding: 1em;
+}
+
+.admin-console{
+  background-color: #F5FFFA;
+  border-radius: 2em;
+  margin-bottom: 2em;
 }
