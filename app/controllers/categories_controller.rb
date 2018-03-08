@@ -17,7 +17,10 @@ class CategoriesController < ApplicationController
   end
 
   def update
-    
+    @category = Category.find(params[:id])
+    if @category.update(category_params)
+      redirect_to root_path
+    end
   end
 
   def destroy

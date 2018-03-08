@@ -13,7 +13,7 @@
         <h5 class="card-title font-weight-light">Description</h5>
         <%= f.text_area :description, class: "form-control", rows: "3", placeholder: "Product description" %></br>
         
-        <h5 class="card-title font-weight-light">Category</h5>
+        <h5 class="card-title font-weight-light">Category (1 must be choosen)</h5>
           <% @existing_categories.all.each do |category| %>
             <%= check_box_tag "pcat[]", category.id %><%= category.category %>
           <% end %>

@@ -10,11 +10,14 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.create(product_params)
-    @pcat = Category.find(params[:pcat]) #index box array
+    
+      @pcat = Category.find(params[:pcat]) if params[:pact] #index box array
 
     if @product.save 
-      @pcat.each do |pc|
-        Categoriesproduct.create(product: @product, category: pc)
+      if params[:pact]
+        @pcat.each do |pc|
+          Categoriesproduct.create(product: @product, category: pc)
+        end
       end
       redirect_to root_path
     end
@@ -65,6 +68,10 @@ class ProductsController < ApplicationController
       $redis.hdel current_user.id, params[:id]
     end
     redirect_to cart_user_path(current_user)
+  end
+
+  def search
+
   end
 
   private
