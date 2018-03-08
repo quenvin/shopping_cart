@@ -83,13 +83,6 @@
     </div>
     </nav>
 
-
-    <% if current_user %>
-      Welcome <%= current_user.name %> (
-      <%= link_to('sign-out' , destroy_user_session_path , method: :delete) %>
-      <%= link_to('edit account' , edit_user_registration_path) %> )
-    <% end %>
-
     <%= yield %>
 
     <%= filestack_js_include_tag %>
