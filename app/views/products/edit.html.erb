@@ -19,6 +19,11 @@
           <h4 class="card-title font-weight-light">Description</h4>
           <%= f.text_area :description, class: "form-control", rows: "3" %></br>
 
+          <h5 class="card-title font-weight-light">Category</h5>
+          <% @existing_categories.each do |category| %>
+            <%= check_box_tag "pcat[]", category.id %><%= category.category %>
+          <% end %>
+
           <h4 class="card-title font-weight-light">Price</h4>
           <%= f.text_field :price, class: "form-control" %></br>
           

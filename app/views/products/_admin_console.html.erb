@@ -1,0 +1,58 @@
+<% if current_user.try(:admin?) %>
+  <div class="row admin-console">
+    <div class="col-sm-12 d-flex justify-content-center font-weight-light">
+      <h4>Welcome back <strong><%= current_user.name %></strong> to the administrative console</h4>
+    </div>
+
+    <div class="col-md-6 border-right border-top">
+      <h3 class="text-center"><u>Add a new product</u></h3>
+      <%= form_for @product, url: products_path do |f| %>
+        <h5 class="card-title font-weight-light">Name</h5>
+        <%= f.text_field :name, class: "form-control", placeholder: "Product name" %></br>
+
+        <h5 class="card-title font-weight-light">Description</h5>
+        <%= f.text_area :description, class: "form-control", rows: "3", placeholder: "Product description" %></br>
+        
+        <h5 class="card-title font-weight-light">Category</h5>
+          <% @existing_categories.all.each do |category| %>
+            <%= check_box_tag "pcat[]", category.id %><%= category.category %>
+          <% end %>
+
+        <h5 class="card-title font-weight-light">Price</h5>
+        <%= f.text_field :price, class: "form-control", placeholder: "Price in 2 decimals point" %></br>
+
+         <%= f.filestack_field :filepicker_url, "Upload product picture", class: "btn btn-primary" %></br>
+        </br>
+
+        <p><%= f.submit "Create product", class: "btn btn-primary" %></p>
+      <% end %>
+    </div>
+
+    <div class="col-md-6 border-left border-top">
+      <h3 class="text-center"><u>Category Management</u></h3>
+      <%= form_for @category, url: categories_path(@products) do |c| %>
+       <h5 class="card-title font-weight-light">Add new Category</h5>
+       <table><tr>
+          <td width="100%"><%= c.text_field :category, class: "form-control", placeholder: "Product Category" %></td>
+          <td><%= c.submit "submit", class: "btn btn-primary" %></td>
+        </tr></table>
+        </br>
+      <% end %>
+
+      <h5 class="card-title font-weight-light text-center">Existing Categories</h5>
+      <div class="list-group">
+        <% @existing_categories.each do |x| %>
+          
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <%= x.category %>
+              <div>
+                <span class="badge badge-pill badge-primary"><%= link_to 'Edit', edit_category_path(x), method: :get, class: "admin-cat-remove-link" %></span>
+                <span class="badge badge-pill badge-danger"><%= link_to 'Remove', category_path(x), method: :delete, class: "admin-cat-remove-link" %></span>
+              </div>
+            </li>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end%>
