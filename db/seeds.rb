@@ -14,7 +14,7 @@ Product.create(name: 'Product 2', description: "Description for Product 2", pric
 Product.create(name: 'Product 3', description: "Description for Product 3", price: 150.68)
 
 Order.create(user_id: 2, status: 'Delivered')
-Order.create(user_id: 2, status: 'Shipping')
+Order.create(user_id: 2, status: 'In Progress')
 
 Ordersproduct.create(product_id: 1, order_id: 1)
 Ordersproduct.create(product_id: 2, order_id: 1)
