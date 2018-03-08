@@ -1,4 +1,4 @@
-<h1>My Cart</h1>
+<h1>Show Order</h1>
 
 <% total_price = 0 %>
 <% @uniq_products.each do |product| %>
@@ -7,7 +7,7 @@
     <p id="product">
       <strong><%= product.name %> : </strong>
       <%= number_to_currency(price =product.price) %>
-      qty: <%= qty = @products.where(id: product).count %>
+      qty: <%= qty = @products.where(product_id: product).count %>
       total: <%= number_to_currency(subtotal = price * qty) %>
       <% total_price = total_price + subtotal %>
     </p>
@@ -23,4 +23,3 @@
 </u>
 <br>
 <hr>
-<%= link_to 'Order History', user_orders_path%>

@@ -40,4 +40,7 @@
   <h3>TOTAL: <%= number_to_currency(total) %></h3>
 <% end %>
 <br>
+<%= link_to 'Pay Now', user_orders_path(current_user), method: "post"%>
+<br>
+<hr>
 <%= link_to 'Order History', user_orders_path(current_user)%>
