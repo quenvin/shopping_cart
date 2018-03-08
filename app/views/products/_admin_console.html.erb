@@ -1,10 +1,13 @@
 <% if current_user.try(:admin?) %>
   <div class="row admin-console">
-    <div class="col-sm-12 d-flex justify-content-center font-weight-light">
-      <h4>Welcome back <strong><%= current_user.name %></strong> to the administrative console</h4>
+    <div class="col-sm-12 d-flex justify-content-center font-weight-light admin-console-col" id="console">
+      <h5>Hello <strong><%= current_user.name %></strong>, welcome to the administrative console (Click to hide/open)</h5>
     </div>
+  </div>
 
-    <div class="col-md-6 border-right border-top">
+<div id="console-form" class="admin-console-form">
+  <div class="row admin-console">
+    <div class="col-md-6 border-right border-top admin-console-col">
       <h3 class="text-center"><u>Add a new product</u></h3>
       <%= form_for @product, url: products_path do |f| %>
         <h5 class="card-title font-weight-light">Name</h5>
@@ -13,7 +16,7 @@
         <h5 class="card-title font-weight-light">Description</h5>
         <%= f.text_area :description, class: "form-control", rows: "3", placeholder: "Product description" %></br>
         
-        <h5 class="card-title font-weight-light">Category (1 must be choosen)</h5>
+        <h5 class="card-title font-weight-light">Category (choose at least 1)</h5>
           <% @existing_categories.all.each do |category| %>
             <%= check_box_tag "pcat[]", category.id %><%= category.category %>
           <% end %>
@@ -28,7 +31,7 @@
       <% end %>
     </div>
 
-    <div class="col-md-6 border-left border-top">
+    <div class="col-md-6 border-left border-top admin-console-col">
       <h3 class="text-center"><u>Category Management</u></h3>
       <%= form_for @category, url: categories_path(@products) do |c| %>
        <h5 class="card-title font-weight-light">Add new Category</h5>
@@ -43,16 +46,28 @@
       <div class="list-group">
         <% @existing_categories.each do |x| %>
           
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <%= x.category %>
-              <div>
-                <span class="badge badge-pill badge-primary"><%= link_to 'Edit', edit_category_path(x), method: :get, class: "admin-cat-remove-link" %></span>
-                <span class="badge badge-pill badge-danger"><%= link_to 'Remove', category_path(x), method: :delete, class: "admin-cat-remove-link" %></span>
-              </div>
-            </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <%= form_for @category, url: category_path(x), method: :put do |f| %>
+              <table><tr>
+                <td width="100%">
+                  <%= f.text_field :category, placeholder: x.category, class: "form-control edit-category-placeholder" %>
+                </td>
+              
+                <td>
+                  <%= f.submit "update", class: "btn btn-primary" %>
+                </td>
+                <td>
+                  <%= link_to 'Remove', category_path(x), method: :delete, class: "btn btn-danger", data: { confirm: 'This will remove the category, procced?' } %>
+                </td>
+              </tr></table>
+
+            <% end %> 
+         
+          </li>
 
         <% end %>
       </div>
     </div>
   </div>
+ </div>
 <% end%>

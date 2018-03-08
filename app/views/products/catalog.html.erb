@@ -1,5 +1,5 @@
 <div class="container">
-  
+
   <%= render partial: "admin_console" %>  
 
   <div class="row">
@@ -14,10 +14,10 @@
   <div class="row">
 
     <div class="col-md-12 d-flex justify-content-center">
-      <h2>You have Searched for <strong><%= @search_params %></strong></h2>
+      <h2>Showing <strong><%= @catalog_name.category %></strong> catalog</h2>
     </div>
 
-    <% @product_search.each do |p| %>
+     <% @catalog.each do |p| %>
       <div class="col-md-3 d-flex flex-column justify-content-between border-left border-right">
         
         <%= filestack_image p.filepicker_url, transform: filestack_transform.resize(width:250, height:250), class: "card-img-top" %>

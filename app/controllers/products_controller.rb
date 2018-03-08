@@ -1,20 +1,18 @@
 class ProductsController < ApplicationController
   
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user!, except: [:index, :search, :catalog]
   def index
     @products = Product.all
-    @product = Product.new
-    @category = Category.new
-    @existing_categories = Category.all
+    repeated_codes
   end
 
   def create
     @product = Product.create(product_params)
     
-      @pcat = Category.find(params[:pcat]) if params[:pact] #index box array
+      @pcat = Category.find(params[:pcat]) if params[:pcat] #index box array
 
     if @product.save 
-      if params[:pact]
+      if params[:pcat]
         @pcat.each do |pc|
           Categoriesproduct.create(product: @product, category: pc)
         end
@@ -27,6 +25,7 @@ class ProductsController < ApplicationController
   end
 
   def edit
+    session[:return_to] ||= request.referer #store requesting url in session hash
     @product = Product.all.find(params[:id])
     @existing_categories = Category.all 
   end
@@ -46,7 +45,8 @@ class ProductsController < ApplicationController
           Categoriesproduct.create(product: @product, category: pc)
         end
       end
-      redirect_to root_path
+      redirect_to session.delete(:return_to) #redirect to stored session path
+
     end
   end
 
@@ -71,13 +71,38 @@ class ProductsController < ApplicationController
   end
 
   def search
+    repeated_codes
+    
+    @search_params = params[:q]
+    @product_search = Product.where("name ILIKE ?", "%#{@search_params}%")
+  end
 
+  def catalog
+    repeated_codes
+    
+    @catalog_params = params[:id]
+    @catalog_name = Category.find(@catalog_params)
+    @catalog_search = Categoriesproduct.where(category_id: @catalog_params)
+    
+    catalog = []
+    @catalog_search.each do |c|
+      catalog << c.product_id
+    end
+
+    @catalog = Product.where(id: catalog)
   end
 
   private
 
   def product_params
     params.require(:product).permit(:name, :filepicker_url, :description, :price, :pcat)
+  end
+
+  def repeated_codes
+    @product = Product.new
+    @category = Category.new
+    @categoriesproduct = Categoriesproduct.select(:category_id).distinct
+    @existing_categories = Category.all
   end
 
 end

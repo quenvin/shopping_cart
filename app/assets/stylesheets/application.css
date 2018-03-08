@@ -27,11 +27,17 @@ body{
 }
 
 .admin-console{
-  background-color: #F5FFFA;
-  border-radius: 2em;
-  margin-bottom: 2em;
+  background-color: #F0FFF0;
+}
+
+.admin-console-col{
+  margin: 0;
 }
 
 .admin-cat-remove-link{
   color: white;
+}
+
+.admin-console-form{
+  display: none;
 }
