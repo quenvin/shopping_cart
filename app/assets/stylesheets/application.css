@@ -14,9 +14,7 @@
  *= require_self
  */
 body{
-  background-image: url('background.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: white;
 }
 
 .navbar-items{
@@ -25,10 +23,15 @@ body{
 
 [class*="col-"] {
   padding: 1em;
+  margin-bottom: 2em;
 }
 
 .admin-console{
   background-color: #F5FFFA;
   border-radius: 2em;
   margin-bottom: 2em;
+}
+
+.admin-cat-remove-link{
+  color: white;
 }

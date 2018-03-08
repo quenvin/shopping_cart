@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20180307052933) do
     t.string "category", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["category"], name: "index_categories_on_category", unique: true
   end
 
   create_table "categoriesproducts", force: :cascade do |t|
@@ -32,6 +33,7 @@ ActiveRecord::Schema.define(version: 20180307052933) do
 
   create_table "orders", force: :cascade do |t|
     t.bigint "user_id"
+    t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_orders_on_user_id"

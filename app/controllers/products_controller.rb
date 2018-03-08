@@ -9,8 +9,13 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @products = Product.create(product_params)
-    if @products.save 
+    @product = Product.create(product_params)
+    @pcat = Category.find(params[:pcat]) #index box array
+
+    if @product.save 
+      @pcat.each do |pc|
+        Categoriesproduct.create(product: @product, category: pc)
+      end
       redirect_to root_path
     end
   end
@@ -19,12 +24,25 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    @product = Product.find(params[:id])
+    @product = Product.all.find(params[:id])
+    @existing_categories = Category.all 
   end
 
   def update
     @product = Product.find(params[:id])
-    if @product.update(product_params)
+    @pcat = Category.find(params[:pcat]) if params[:pcat] != nil #index box array
+
+    cleanse_cat = Categoriesproduct.where(product: @product)  #cleanse Categoriesproduct of existing product id
+    cleanse_cat.each do |cleanse|
+      cleanse.destroy
+    end
+
+    if @product.update(product_params)  
+      if @pcat != nil
+        @pcat.each do |pc|
+          Categoriesproduct.create(product: @product, category: pc)
+        end
+      end
       redirect_to root_path
     end
   end
@@ -52,7 +70,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:name, :filepicker_url, :description, :price)
+    params.require(:product).permit(:name, :filepicker_url, :description, :price, :pcat)
   end
 
 end

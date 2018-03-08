@@ -4,10 +4,11 @@ Rails.application.routes.draw do
 
   root "products#index"
   resources :products do
-    resources :categories
     put 'add_cart', on: :member
     put 'remove_cart', on: :member
   end
+
+  resources :categories
 
   resources :users do
     resources :orders
