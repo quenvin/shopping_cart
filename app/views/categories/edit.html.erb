@@ -1,1 +1,4 @@
-Test <%= @category.id %>
+<%= form_for @category do |f| %>
+  <%= f.text_field :category %>
+  <%= f.submit "update" %>
+<% end  %>

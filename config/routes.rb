@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :products do
     put 'add_cart', on: :member
     put 'remove_cart', on: :member
+    get 'search', on: :collection
   end
 
   resources :categories
