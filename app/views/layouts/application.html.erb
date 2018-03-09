@@ -27,7 +27,7 @@
             <li class="nav-item">
               <%= form_tag search_products_path, method: :get do %>
                 <table><tr>
-                  <td><%= text_field_tag :q, params[:q], placeholder: "Search a product", class: "form-control" %></td>
+                  <td width="80%"><%= text_field_tag :q, params[:q], placeholder: "Search a product", class: "form-control" %></td>
                   <td><%= submit_tag 'Search', class: "btn btn-outline-success" %></td>
                 </tr></table>
               <% end%>
@@ -38,10 +38,16 @@
                   <div class="dropdown-toggle navbar-items" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Catalog
                   </div>
-                  <% if @existing_categories %>
+                  <% if @categoriesproduct %>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <% @existing_categories.each do |c| %>
-                        <div class="dropdown-item"><%= c.category %></div>
+                      <% @categoriesproduct.each do |c| %>
+                        <% @existing_categories.each do |ec| %>
+                          <% if c.category_id == ec.id %>
+                            <div class="dropdown-item">
+                              <%= link_to ec.category, catalog_product_path(ec), method: :get %>
+                            </div>
+                          <% end %>
+                        <% end %>
                       <% end %>
                     </div>     
                   <% end %>
@@ -49,9 +55,6 @@
               </li>
 
             <% if current_user %>
-              <li class="nav-item nav-link">
-                <%= link_to 'Cart', cart_user_path(current_user)%>
-              </li>
               <li class="nav-item">
                 <div class="dropdown nav-link">
                   <div class="dropdown-toggle navbar-items" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -62,6 +65,10 @@
                     <div class="dropdown-item"><%= link_to 'Close Account', user_path(current_user.id), method: :delete, data: {confirm:"Are you sure?"} %></div>
                   </div>             
                 </div>
+              </li>
+
+              <li class="nav-item nav-link">
+                <%= link_to 'Cart', cart_user_path(current_user), class: "navbar-items"%>
               </li>
 
               <li class="nav-item nav-link">
