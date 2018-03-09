@@ -8,7 +8,7 @@
 
   <div class="row">
 
-    <div class="col-md-12 d-flex justify-content-center">
+    <div class="col-md-12 d-flex justify-content-center mt-4">
       <h2>The Marketplace</h2>
     </div>
 
@@ -42,7 +42,7 @@
                 <td><%= button_to 'Edit', edit_product_path(p), method: :get, class: "btn btn-outline-primary" %></td>
                 <td><%= button_to 'Destroy', p, method: :delete, class: "btn btn-danger", data: { confirm: 'This will remove the product, are you sure you want to proceed' } %></td>
               <% else %>
-                <td><%= link_to 'Add to cart', add_cart_product_path(p), method: :put %></td>
+                <td><%= link_to 'Add to cart', add_cart_product_path(p), method: :put, class: "btn btn-outline-success" %></td>
               <% end%>
             </tr>
           </table>

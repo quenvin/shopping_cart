@@ -1,25 +1,34 @@
-<h1>Show Order</h1>
-
-<% total_price = 0 %>
-<% @uniq_products.each do |product| %>
-
-  <div class="myproducts">
-    <p id="product">
-      <strong><%= product.name %> : </strong>
-      <%= number_to_currency(price =product.price) %>
-      qty: <%= qty = @products.where(product_id: product).count %>
-      total: <%= number_to_currency(subtotal = price * qty) %>
-      <% total_price = total_price + subtotal %>
-    </p>
-    <hr>
-
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 p-0 mt-3 mb-0 d-flex justify-content-center">
+      <h3 class="card-title font-weight-light">Showing order ID: <%= params[:id] %></h3>
+    </div>
   </div>
-<% end %>
-<u>
-<strong>
-  Grand Total: 
-  <%= number_to_currency(total_price) %>
-</strong>
-</u>
-<br>
-<hr>
+
+  <% total_price = 0 %>
+  <% @uniq_products.each do |product| %>
+    <div class="row">
+      <div class="col-md-6 offset-md-3 border-top border-bottom mb-0">
+        <table width="100%"><tr>
+          <td width="20%"><%= filestack_image product.filepicker_url, transform: filestack_transform.resize(width:150, height:150), class: "card-img-top" %></td>
+          <td width="80%" class="pl-4">
+            <p><strong>Name: </strong><%= product.name %></p>
+            <p class="card-subtitle mb-2 text-muted"><%= number_to_currency(price =product.price) %> each</p>
+            <p><strong>Quantity: </strong><%= qty = @products.where(product_id: product).count %></p>
+            <p><strong>Sub-Total: </strong><%= number_to_currency(subtotal = price * qty) %></p>
+            <% total_price = total_price + subtotal %>
+          </td>
+        </tr></table>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <p><strong>Grand Total: </strong><%= number_to_currency(total_price) %></p>
+      <%= link_to 'Back', url_for(:back), class: "btn btn-secondary" %>
+    </div>
+  </div>
+
+
+</div>

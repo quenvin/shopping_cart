@@ -3,18 +3,17 @@
   <%= render partial: "admin_console" %>  
 
   <div class="row">
-    <div class="col-md-12 testbg">
-      rotating banner here </br>
-      Hot deals, lobangz </br>
-      use carosel from bootstrap
-    
-    </div>
+    <%= render partial: "carousel" %>  
   </div>
 
   <div class="row">
 
-    <div class="col-md-12 d-flex justify-content-center">
-      <h2>You have Searched for <strong><%= @search_params %></strong></h2>
+    <div class="col-md-12 d-flex justify-content-center mt-4">
+      <% if @search_params == "" %>
+        <h2>Returning results for all products</h2>
+      <% else %>
+        <h2>You have Searched for <strong><%= @search_params %></strong></h2>
+      <% end %>
     </div>
 
     <% @product_search.each do |p| %>
@@ -47,7 +46,7 @@
                 <td><%= button_to 'Edit', edit_product_path(p), method: :get, class: "btn btn-outline-primary" %></td>
                 <td><%= button_to 'Destroy', p, method: :delete, class: "btn btn-danger", data: { confirm: 'This will remove the product, are you sure you want to proceed' } %></td>
               <% else %>
-                <td><%= link_to 'Add to cart', add_cart_product_path(p), method: :put %></td>
+                <td><%= link_to 'Add to cart', add_cart_product_path(p), method: :put, class: "btn btn-outline-success" %></td>
               <% end%>
             </tr>
           </table>

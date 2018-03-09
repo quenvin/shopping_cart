@@ -2,10 +2,16 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @categoriesproduct = Categoriesproduct.select(:category_id).distinct
+    @existing_categories = Category.all
+
     @orders = current_user.orders
   end
 
   def show
+    @categoriesproduct = Categoriesproduct.select(:category_id).distinct
+    @existing_categories = Category.all
+
     @products = Ordersproduct.all.where(order_id: params[:id])
     @uniq_products = Order.find(params[:id]).products.uniq
   end

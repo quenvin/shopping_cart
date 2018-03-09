@@ -5,7 +5,7 @@
     </div>
   </div>
 
-<div id="console-form" class="admin-console-form">
+<div id="console-form">
   <div class="row admin-console">
     <div class="col-md-6 border-right border-top admin-console-col">
       <h3 class="text-center"><u>Add a new product</u></h3>
@@ -54,7 +54,7 @@
                 </td>
               
                 <td>
-                  <%= f.submit "update", class: "btn btn-primary" %>
+                  <%= f.submit "update", class: "btn btn-outline-primary" %>
                 </td>
                 <td>
                   <%= link_to 'Remove', category_path(x), method: :delete, class: "btn btn-danger", data: { confirm: 'This will remove the category, procced?' } %>
