@@ -15,7 +15,10 @@ Rails.application.routes.draw do
 
   resources :users do
     get 'cart', on: :member
-    resources :orders, except: [:edit, :destroy]
+    resources :orders, except: [:edit, :destroy, :update] do
+      put 'authorized', on: :member
+      put 'unauthorized', on: :member
+    end
   end
 
   

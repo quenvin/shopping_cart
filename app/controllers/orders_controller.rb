@@ -5,7 +5,13 @@ class OrdersController < ApplicationController
     @categoriesproduct = Categoriesproduct.select(:category_id).distinct
     @existing_categories = Category.all
 
-    @orders = current_user.orders
+    if current_user.try(:admin?)
+      @orders = Order.all.order('created_at DESC')
+      @pending_orders = Order.where(status: 'In Progress').order('created_at DESC')
+      @rejected_orders = Order.where(status: 'Failed').order('created_at DESC')
+    else
+      @orders = current_user.orders.order('created_at DESC')
+    end
   end
 
   def show
@@ -50,6 +56,31 @@ class OrdersController < ApplicationController
     Braintree::ClientToken.generate
   end
 
+  def authorized
+    @order = Order.find(params[:id])
+    @order.status = 'Delivered'
+    if @order.save
+      redirect_to user_orders_path
+      flash[:notice] = 'Order ID: ' + @order.id.to_s + ' authorized' 
+    else
+      redirect_to user_orders_path
+      flash[:alert] = 'Order ID: ' + @order.id.to_s + ' authorization failed' 
+    end  
+  end
 
+  def unauthorized
+    @order = Order.find(params[:id])
+    @order.status = 'Failed'
+    if @order.save
+      redirect_to user_orders_path
+      flash[:alert] = 'Order ID: ' + @order.id.to_s + ' rejected' 
+    end  
+  end
+
+  private
+
+  def order_params
+    params.require(:product).permit(:status)
+  end
 
 end

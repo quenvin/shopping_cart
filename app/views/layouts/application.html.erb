@@ -72,7 +72,7 @@
 
               <% if current_user.try(:admin?) %>
                 <li class="nav-item nav-link">
-                  <%= link_to 'Orders', cart_user_path(current_user), class: "navbar-items"%>
+                  <%= link_to 'Orders', user_orders_path(current_user), class: "navbar-items"%>
                 </li>
               <% else %>
                 <li class="nav-item nav-link">
