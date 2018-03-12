@@ -68,9 +68,15 @@
                 </div>
               </li>
 
-              <li class="nav-item nav-link">
-                <%= link_to 'Cart', cart_user_path(current_user), class: "navbar-items"%>
-              </li>
+              <% if current_user.try(:admin?) %>
+                <li class="nav-item nav-link">
+                  <%= link_to 'Orders', cart_user_path(current_user), class: "navbar-items"%>
+                </li>
+              <% else %>
+                <li class="nav-item nav-link">
+                  <%= link_to 'Cart', cart_user_path(current_user), class: "navbar-items"%>
+                </li>
+              <% end %>
 
               <li class="nav-item nav-link">
                 <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "navbar-items" %>

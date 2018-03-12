@@ -18,7 +18,7 @@
         
         <h5 class="card-title font-weight-light">Category (choose at least 1)</h5>
           <% @existing_categories.all.each do |category| %>
-            <%= check_box_tag "pcat[]", category.id %><%= category.category %>
+            <%= check_box_tag "pcat[]", category.id %><%= category.category %> &nbsp
           <% end %>
 
         <h5 class="card-title font-weight-light">Price</h5>
