@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12 p-0 mt-3 mb-0 d-flex justify-content-center">
-      <h3 class="card-title font-weight-light">Showing order ID: <%= params[:id] %></h3>
+      <h3 class="card-title font-weight-light">Transaction Number: <%= Order.find(params[:id]).transaction_num %></h3>
     </div>
   </div>
 

@@ -14,8 +14,8 @@ Rails.application.routes.draw do
   resources :categories
 
   resources :users do
-    resources :orders, except: [:edit, :destroy]
     get 'cart', on: :member
+    resources :orders, except: [:edit, :destroy]
   end
 
   

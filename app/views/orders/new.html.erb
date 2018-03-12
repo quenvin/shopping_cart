@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 d-flex justify-content-center mb-0 pb-0">
+      <h2 class="card-title">Payment Page</h2>
+    </div>
+  </div>
+
+
+  <% total = 0 %>
+  <% @cart.each do |product_id, qty| %>
+    <div class="row">
+      <div class="col-md-12 m-0 p-2">
+        <table border="1" width="100%"><tr>
+          <td width="20%" class="text-center">
+            <%= filestack_image Product.find(product_id).filepicker_url, transform: filestack_transform.resize(width:150, height:150)  %>
+          </td>
+
+          <td width="60%" class="pt-2 pl-2">
+            <h5 class="card-title font-weight-bold"><%=Product.find(product_id).name %></h5>
+            <h6 class="card-subtitle mb-2 text-muted"><%= number_to_currency(price = Product.find(product_id).price) %> each</h6>
+            <p class="card-text"><%=Product.find(product_id).description %><p></br>
+            <strong>Subtotal: </strong><%= number_to_currency(subtotal = price * qty.to_i) %>
+            <% total += subtotal %>
+          </td>
+        
+          <td width="20%" class="text-center"> 
+            <h5 class="card-title font-weight-bold">Quantity</h5>
+            <p class="card-text">
+               <%= qty %> 
+            </p>
+          </td>
+        </tr></table>
+      </div>
+    </div>
+  <% end %>
+
+  <%= form_tag user_orders_path(current_user, total: total) do%>
+    <p>Please enter your payment details:</p>
+    <div id="dropin"></div>
+    <%= submit_tag "Pay #{number_to_currency(total)}" %>
+  <%end%>
+  </div>
+</div>
