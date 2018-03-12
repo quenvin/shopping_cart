@@ -46,7 +46,7 @@
           <table width="100%"><tr>
             <td width="20%" class="text-center"><h5 class="card-title font-weight-bold">Grand Total: </h5></td>
             <td width="60%"><h5 class="card-title font-weight-bold pl-3"><%= number_to_currency(total) %></h5></td>
-            <td width="20%" class="text-center"><p><%= link_to 'Checkout', user_orders_path(current_user), method: :post, class: "btn btn-outline-primary", data: { confirm: "This will redirect you to checkout, proceed?"} %></p></td>
+            <td width="20%" class="text-center"><p><%= link_to 'Checkout', new_user_order_path(current_user), method: :get, class: "btn btn-outline-primary", data: { confirm: "This will redirect you to checkout, proceed?"} %></p></td>
           </tr></table>
         </div>
       </div>

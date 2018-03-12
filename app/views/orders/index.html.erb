@@ -102,7 +102,7 @@
     <% @orders.each do |order| %>
       <div class="row">
         <div class="col-md-6 offset-md-3 border-top border-bottom mb-0">
-          <p><strong>Order ID:</strong> <%= order.id %></p>
+          <p><strong>Transaction Number:</strong> <%= order.transaction_num %></p>
           <p><strong>Order Status: </strong>
             <% if order.status == "Delivered" %>
               <b class="text-success"><%= order.status %></b>
