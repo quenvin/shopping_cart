@@ -7,7 +7,7 @@
 
   <% if @cart.empty? %>
     <div class="row">
-      <div class="col-md-12">No items in shopping cart</div>
+      <div class="col-md-12">No items in shopping cart <%= link_to 'Back', url_for(:back), class: "btn btn-secondary" %></div>
     </div>
   <% else %>
     <% total = 0 %>
@@ -46,7 +46,9 @@
           <table width="100%"><tr>
             <td width="20%" class="text-center"><h5 class="card-title font-weight-bold">Grand Total: </h5></td>
             <td width="60%"><h5 class="card-title font-weight-bold pl-3"><%= number_to_currency(total) %></h5></td>
-            <td width="20%" class="text-center"><p><%= link_to 'Checkout', new_user_order_path(current_user), method: :get, class: "btn btn-outline-primary", data: { confirm: "This will redirect you to checkout, proceed?"} %></p></td>
+            <td width="20%" class="text-center"><p><%= link_to 'Checkout', new_user_order_path(current_user), method: :get, class: "btn btn-outline-primary", data: { confirm: "This will redirect you to checkout, proceed?"} %>
+            <%= link_to 'Back', url_for(:back), class: "btn btn-secondary" %>
+            </p></td>
           </tr></table>
         </div>
       </div>

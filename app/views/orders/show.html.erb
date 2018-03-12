@@ -1,7 +1,10 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-12 p-0 mt-3 mb-0 d-flex justify-content-center">
-      <h3 class="card-title font-weight-light">Transaction Number: <%= Order.find(params[:id]).transaction_num %></h3>
+    <div class="col-md-6 offset-md-3 border-bottom mb-0">
+      <h5>Transaction ID: <strong><%= @order_details.transaction_num %></strong></h5>
+      <h5>Executed by: <strong><%= @order_details.user.name %></strong></h5>
+      <h5>User ID: <strong><%= @order_details.user_id%></strong></h5>
+      <h5>Created DateTime: <strong><%= @order_details.created_at.strftime("%d/%m/%Y, %I:%M%p") %></strong></h5>
     </div>
   </div>
 

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12 d-flex justify-content-center mb-0 pb-0">
-      <h2 class="card-title">Payment Page</h2>
+      <h2 class="card-title">You're now checking out your shopping cart</h2>
     </div>
   </div>
 
@@ -34,10 +34,15 @@
     </div>
   <% end %>
 
+  </br></br>
+
   <%= form_tag user_orders_path(current_user, total: total) do%>
-    <p>Please enter your payment details:</p>
+    <h4 class="text-center">Please enter your payment details</h4>
     <div id="dropin"></div>
-    <%= submit_tag "Pay #{number_to_currency(total)}" %>
-  <%end%>
+    <p><strong>Grand Total: </strong><%= number_to_currency(total) %></p>
+    <p><%= submit_tag "Pay", class: "btn btn-primary" %>
+    <%= link_to 'Back', url_for(:back), class: "btn btn-secondary" %>
+    </p>
+    <% end %>
   </div>
 </div>
