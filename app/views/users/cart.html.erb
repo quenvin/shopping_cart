@@ -1,47 +1,57 @@
-<h1>Cart</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 d-flex justify-content-center mb-0 pb-0">
+      <h2 class="card-title">Your Shopping Cart Items</h2>
+    </div>
+  </div>
 
-<% if @cart.empty? %>
-  <h3>No Item In The Cart</h3>
-<% else %>
-  <table>
-    <tr>
-      <th>Product Name</th>
-      <th>Qty.</th>
-      <th>Price</th>
-      <th>Subtotal</th>
-    </tr>
+  <% if @cart.empty? %>
+    <div class="row">
+      <div class="col-md-12">No items in shopping cart</div>
+    </div>
+  <% else %>
     <% total = 0 %>
     <% @cart.each do |product_id, qty| %>
-      <tr>
-        <td>
-          <%=Product.find(product_id).name %>
-        </td>
-        <td>
-          <%=qty %>
-        </td>
-        <td>
-          <%= number_to_currency(price = Product.find(product_id).price) %>
-        </td>
-        <td>
-          <%= number_to_currency(subtotal = price * qty.to_i) %>
-          <% total += subtotal %>
-        </td>
-        <td>
-          <%= link_to 'Add to cart', add_cart_product_path(product_id), method: :put %>
-        </td>
-        <% qty = $redis.hget current_user.id, product_id %>
-        <td>
-          <%= link_to 'Remove from cart', remove_cart_product_path(product_id), method: :put %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
-  <br>
-  <h3>TOTAL: <%= number_to_currency(total) %></h3>
-<br>
-<%= link_to 'Pay Now', user_orders_path(current_user), method: "post"%>
-<% end %>
-<br>
-<hr>
+      <div class="row">
+        <div class="col-md-12 m-0 p-2">
+          <table border="1" width="100%"><tr>
+            <td width="20%" class="text-center">
+              <%= filestack_image Product.find(product_id).filepicker_url, transform: filestack_transform.resize(width:150, height:150)  %>
+            </td>
 
-<%= link_to 'Order History', user_orders_path(current_user) if current_user.orders.any? %>
+            <td width="60%" class="pt-2 pl-2">
+              <h5 class="card-title font-weight-bold"><%=Product.find(product_id).name %></h5>
+              <h6 class="card-subtitle mb-2 text-muted"><%= number_to_currency(price = Product.find(product_id).price) %> each</h6>
+              <p class="card-text"><%=Product.find(product_id).description %><p></br>
+              <strong>Subtotal: </strong><%= number_to_currency(subtotal = price * qty.to_i) %>
+              <% total += subtotal %>
+            </td>
+          
+            <td width="20%" class="text-center"> 
+              <h5 class="card-title font-weight-bold">Quantity</h5>
+              <p class="card-text">
+                <%= link_to '-', remove_cart_product_path(product_id), method: :put, class: "btn btn-outline-danger btn-small font-weight-bold" %>
+                &nbsp <%= qty %> &nbsp 
+                <%= link_to '+', add_cart_product_path(product_id), method: :put, class: "btn btn-outline-success btn-small font-weight-bold" %>
+              </p>
+            </td>
+          
+          </tr></table>
+        </div>
+      </div>
+    <% end %>
+
+      <div class="row">
+        <div class="col-md-12 m-0 p-2">
+          <table width="100%"><tr>
+            <td width="20%" class="text-center"><h5 class="card-title font-weight-bold">Grand Total: </h5></td>
+            <td width="60%"><h5 class="card-title font-weight-bold pl-3"><%= number_to_currency(total) %></h5></td>
+            <td width="20%" class="text-center"><p><%= link_to 'Checkout', user_orders_path(current_user), method: :post, class: "btn btn-outline-primary", data: { confirm: "This will redirect you to checkout, proceed?"} %></p></td>
+          </tr></table>
+        </div>
+      </div>
+
+
+  <% end %>
+
+</div>

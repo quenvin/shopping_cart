@@ -1,24 +1,35 @@
-<h1>Order History</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 p-0 mt-3 mb-0 d-flex justify-content-center">
+      <h3 class="card-title font-weight-light">Your order history</h3>
+    </div>
+  </div>
 
-<table>
   <% @orders.each do |order| %>
-    <tr>
-      <td>Order Number: </td>
-      <td><%= order.id %></td>
-    </tr>
-    <tr>
-      <td>Status: </td>
-      <td><%= order.status %></td>
-    </tr>
-    <tr>
-      <td>Payment Date: </td>
-      <td><%= order.created_at %></td>
-    </tr>
-    <tr>
-      <td><%= link_to 'View Details', user_order_path(current_user, order) %></td>
-    </tr>
-    <tr>
-      <td colspan='2'><hr></td>
-    </tr>
+    <div class="row">
+      <div class="col-md-6 offset-md-3 border-top border-bottom mb-0">
+        <p><strong>Order ID:</strong> <%= order.id %></p>
+        <p><strong>Order Status: </strong>
+          <% if order.status == "Delivered" %>
+            <b class="text-success"><%= order.status %></b>
+          <% elsif order.status == "In Progress" %>
+            <b class="text-warning"><%= order.status %></b>
+          <% else %>
+            <b class="text-danger"><%= order.status %></b>
+          <% end %>
+        </p>
+        <p><strong>Payment Time: </strong><%= order.created_at.strftime("%d/%m/%Y, %I:%M%p") %></p>
+        <p><%= link_to 'View order details', user_order_path(current_user, order) %></p>
+      </div>
+    </div>
   <% end %>
-</table>
+
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="actions">
+        <%= link_to 'Back', url_for(:back), class: "btn btn-secondary" %>
+      </div>
+    </div>
+  </div>
+
+</div>

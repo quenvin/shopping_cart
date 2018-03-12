@@ -21,9 +21,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  def show
-  end
-
   def edit
     session[:return_to] ||= request.referer #store requesting url in session hash
     @product = Product.all.find(params[:id])

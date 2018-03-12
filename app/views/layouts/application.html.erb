@@ -34,25 +34,25 @@
             </li>
 
             <li class="nav-item">
-                <div class="dropdown nav-link">
-                  <div class="dropdown-toggle navbar-items" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Catalog
-                  </div>
-                  <% if @categoriesproduct %>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <% @categoriesproduct.each do |c| %>
-                        <% @existing_categories.each do |ec| %>
-                          <% if c.category_id == ec.id %>
-                            <div class="dropdown-item">
-                              <%= link_to ec.category, catalog_product_path(ec), method: :get %>
-                            </div>
-                          <% end %>
+              <div class="dropdown nav-link">
+                <div class="dropdown-toggle navbar-items" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Catalog
+                </div>
+                <% if @categoriesproduct %>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <% @categoriesproduct.each do |c| %>
+                      <% @existing_categories.each do |ec| %>
+                        <% if c.category_id == ec.id %>
+                          <div class="dropdown-item">
+                            <%= link_to ec.category, catalog_product_path(ec), method: :get %>
+                          </div>
                         <% end %>
                       <% end %>
-                    </div>     
-                  <% end %>
-                </div>
-              </li>
+                    <% end %>
+                  </div>     
+                <% end %>
+              </div>
+            </li>
 
             <% if current_user %>
               <li class="nav-item">
@@ -61,7 +61,8 @@
                     Account
                   </div>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <div class="dropdown-item"><%= link_to 'Change password', edit_user_registration_path, method: :get %></div>
+                    <div class="dropdown-item"><%= link_to 'Edit Profile', edit_user_registration_path, method: :get %></div>
+                    <div class="dropdown-item"><%= link_to 'Order History', user_orders_path(current_user) if current_user.orders.any? %></div>
                     <div class="dropdown-item"><%= link_to 'Close Account', user_path(current_user.id), method: :delete, data: {confirm:"Are you sure?"} %></div>
                   </div>             
                 </div>

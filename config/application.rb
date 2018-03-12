@@ -16,5 +16,6 @@ module ShoppingCart
     # -- all .rb files in that directory are automatically loaded.
 
     config.filestack_rails.api_key = ENV['FILESTACK_API_KEY']
+    config.time_zone = 'Singapore'
   end
 end
