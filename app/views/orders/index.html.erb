@@ -1,35 +1,131 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-12 p-0 mt-3 mb-0 d-flex justify-content-center">
-      <h3 class="card-title font-weight-light">Your order history</h3>
-    </div>
-  </div>
-
-  <% @orders.each do |order| %>
+<% if current_user.try(:admin?) %>
+  <div class="container">
     <div class="row">
-      <div class="col-md-6 offset-md-3 border-top border-bottom mb-0">
-        <p><strong>Order ID:</strong> <%= order.id %></p>
-        <p><strong>Order Status: </strong>
-          <% if order.status == "Delivered" %>
-            <b class="text-success"><%= order.status %></b>
-          <% elsif order.status == "In Progress" %>
-            <b class="text-warning"><%= order.status %></b>
-          <% else %>
-            <b class="text-danger"><%= order.status %></b>
-          <% end %>
-        </p>
-        <p><strong>Payment Time: </strong><%= order.created_at.strftime("%d/%m/%Y, %I:%M%p") %></p>
-        <p><%= link_to 'View order details', user_order_path(current_user, order) %></p>
+      <div class="col-md-12 p-0 mt-3 mb-0 d-flex justify-content-center">
+        <h3 class="card-title">Hello <strong><%= current_user.name %></strong>, welcome to MOMS (Marketplace Order Management System)</h3>  
       </div>
     </div>
-  <% end %>
 
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <div class="actions">
-        <%= link_to 'Back', url_for(:back), class: "btn btn-secondary" %>
+    <div class="row d-flex">
+      <div class="col-md-6 border m-0 text-center">
+        <h3>Pending Order(s)</h3>
+        <h5 class="bg-success"><%= notice %></h5>
+        <h5 class="bg-danger"><%= alert %></h5>
+        <table width="100%">
+          <tr>
+            <th>ID</th>
+            <th>Datetime</th>
+            <th>Trasaction No.</th>
+            <th>Actions</th>  
+          </tr>
+         
+        <% @pending_orders.each do |po| %>
+          <tr>
+            <td><%= link_to po.id, user_order_path(po.user_id, po) %></td>
+            <td><%= po.created_at.strftime("%d/%m/%Y, %I:%M%p") %></td>
+            <td>Transaction Number</td>
+            <td>
+              <%= link_to 'Authorize', authorized_user_order_path(po.user_id, po), method: :put, class: "btn btn-outline-success" %>
+              <%= link_to 'Reject', unauthorized_user_order_path(po.user_id, po), method: :put, class: "btn btn-danger", data: { confirm: 'Confirm reject order?'} %>
+            </td>
+          </tr>
+        <% end %>
+        </table>
+      </div>
+
+      <div class="col-md-6 border m-0 text-center">
+        <h3>Failed Order(s)</h3>
+        <table width="100%">
+          <tr>
+            <th>ID</th>
+            <th>Created at</th>
+            <th>Rejected on</th>
+            <th>Transaction No.</th>
+          </tr>
+        
+        <% @rejected_orders.each do |ro| %>
+          <tr>
+            <td><%= link_to ro.id, user_order_path(ro.user_id, ro) %></td>
+            <td><%= ro.created_at.strftime("%d/%m/%Y, %I:%M%p") %></td>
+            <td><%= ro.updated_at.strftime("%d/%m/%Y, %I:%M%p") %></td>
+            <td>Transaction No.</td>
+          </tr>
+        <% end %>
+        </table>
+
       </div>
     </div>
+
+    <div class="row">
+      <div class="col-md-8 offset-md-2 text-center">
+        <h3>Historical Summary</h3>
+        <table width="100%" border="1"><tr>
+          <th>ID</th>
+          <th>Status</th>
+          <th>Datetime</th>
+          <th>Transaction No.</th>
+        </tr>  
+
+        <% @orders.each do |order| %>
+        <tr>
+          <td><p><%= link_to order.id, user_order_path(order.user_id, order) %></p></td>
+          <td><% if order.status == "Delivered" %>
+              <b class="text-success"><%= order.status %></b>
+            <% elsif order.status == "In Progress" %>
+              <b class="text-warning"><%= order.status %></b>
+            <% else %>
+              <b class="text-danger"><%= order.status %></b>
+            <% end %>
+          </p></td>
+          <td><%= order.created_at.strftime("%d/%m/%Y, %I:%M%p") %></td>
+          <td>Transaction Number here</td>
+
+        </tr>
+
+        <% end %>
+
+        </table>
+      </div>
+    </div>
+
   </div>
 
-</div>
+<% else %>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 p-0 mt-3 mb-0 d-flex justify-content-center">
+        <h3 class="card-title font-weight-light">Your order history</h3>
+      </div>
+    </div>
+
+    <% @orders.each do |order| %>
+      <div class="row">
+        <div class="col-md-6 offset-md-3 border-top border-bottom mb-0">
+          <p><strong>Order ID:</strong> <%= order.id %></p>
+          <p><strong>Order Status: </strong>
+            <% if order.status == "Delivered" %>
+              <b class="text-success"><%= order.status %></b>
+            <% elsif order.status == "In Progress" %>
+              <b class="text-warning"><%= order.status %></b>
+            <% else %>
+              <b class="text-danger"><%= order.status %></b>
+            <% end %>
+          </p>
+          <p><strong>Payment Time: </strong><%= order.created_at.strftime("%d/%m/%Y, %I:%M%p") %></p>
+          <p><%= link_to 'View order details', user_order_path(current_user, order) %></p>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="actions">
+          <%= link_to 'Back', url_for(:back), class: "btn btn-secondary" %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+<% end %>
