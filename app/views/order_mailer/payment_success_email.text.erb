@@ -1,0 +1,18 @@
+Hi <%= @user.name %>,
+
+Payment is successful
+
+Transaction ID: <%= @order_details.transaction_num %>
+Executed by: <%= @order_details.user.name %>
+User ID: <%= @order_details.user_id%></strong>
+Created DateTime: <%= @order_details.created_at.strftime("%d/%m/%Y, %I:%M%p") %>
+
+  <% total_price = 0 %>
+  <% @uniq_products.each do |product| %>
+    Name: <%= product.name %>
+    <%= number_to_currency(price =product.price) %> each
+    Quantity: <%= qty = @products.where(product_id: product).count %>
+    Sub-Total: <%= number_to_currency(subtotal = price * qty) %>
+    <% total_price = total_price + subtotal %>
+  <% end %>
+  Grand Total: <%= number_to_currency(total_price) %>
