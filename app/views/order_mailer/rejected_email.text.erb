@@ -1,11 +1,8 @@
-Hi <%= @user.name %>,
+Hello <%= @user.name %>,
 
-Your Order Has Been Rejected
+Your order has been rejected for the following products
 
 Transaction ID: <%= @order_details.transaction_num %>
-Executed by: <%= @order_details.user.name %>
-User ID: <%= @order_details.user_id%></strong>
-Created DateTime: <%= @order_details.created_at.strftime("%d/%m/%Y, %I:%M%p") %>
 
   <% total_price = 0 %>
   <% @uniq_products.each do |product| %>

@@ -1,11 +1,10 @@
-Hi <%= @user.name %>,
+Hello <%= @user.name %>,
 
-Payment is successful
+We are in the midst of processing your payment for the following items.
+Once verified, a seperate E-mail will be send to inform you that the product(s) has been shipped to your address
 
 Transaction ID: <%= @order_details.transaction_num %>
-Executed by: <%= @order_details.user.name %>
-User ID: <%= @order_details.user_id%></strong>
-Created DateTime: <%= @order_details.created_at.strftime("%d/%m/%Y, %I:%M%p") %>
+Created at: <%= @order_details.created_at.strftime("%d/%m/%Y, %I:%M%p") %>
 
   <% total_price = 0 %>
   <% @uniq_products.each do |product| %>

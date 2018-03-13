@@ -1,10 +1,8 @@
-Hi <%= @user.name %>,
+Hello <%= @user.name %>,
 
-Your Order Status Has Been Change To Delivered
+Your payment has been verified, we have send the following products for shipping.
 
 Transaction ID: <%= @order_details.transaction_num %>
-Executed by: <%= @order_details.user.name %>
-User ID: <%= @order_details.user_id%></strong>
 Created DateTime: <%= @order_details.created_at.strftime("%d/%m/%Y, %I:%M%p") %>
 
   <% total_price = 0 %>

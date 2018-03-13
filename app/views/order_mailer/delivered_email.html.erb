@@ -1,21 +1,23 @@
-<h3>Hi <%= @user.name %>,</h3>
-<br>
-<h3>Your Order Status Has Been Changed To Delivered</h3>
-
 <div class="container">
+
   <div class="row">
-    <div class="col-md-6 offset-md-3 border-bottom mb-0">
-      <h5>Transaction ID: <strong><%= @order_details.transaction_num %></strong></h5>
-      <h5>Executed by: <strong><%= @order_details.user.name %></strong></h5>
-      <h5>User ID: <strong><%= @order_details.user_id%></strong></h5>
-      <h5>Created DateTime: <strong><%= @order_details.created_at.strftime("%d/%m/%Y, %I:%M%p") %></strong></h5>
+    <div class="col-md-6 offset-md-3 border-top border-bottom p-2">
+      <h4>Hello <%= @user.name %>,</h4>
+      <h5>Your payment has been verified, we have send the following products for shipping</h5>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 offset-md-3 border-top border-bottom p-2">
+     <h5>Transaction ID: <strong><%= @order_details.transaction_num %></strong></h5>
+     <h5>Created at: <strong><%= @order_details.created_at.strftime("%d/%m/%Y, %I:%M%p") %></strong></h5>
     </div>
   </div>
 
   <% total_price = 0 %>
   <% @uniq_products.each do |product| %>
     <div class="row">
-      <div class="col-md-6 offset-md-3 border-top border-bottom mb-0">
+      <div class="col-md-6 offset-md-3 border-top border-bottom p-2">
         <table width="100%"><tr>
           <td width="80%" class="pl-4">
             <p><strong>Name: </strong><%= product.name %></p>
@@ -30,7 +32,7 @@
   <% end %>
 
   <div class="row">
-    <div class="col-md-6 offset-md-3">
+    <div class="col-md-6 offset-md-3 border-top border-bottom p-2">
       <p><strong>Grand Total: </strong><%= number_to_currency(total_price) %></p>
     </div>
   </div>
