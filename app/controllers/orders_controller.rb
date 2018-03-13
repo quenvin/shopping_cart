@@ -19,6 +19,7 @@ class OrdersController < ApplicationController
     @existing_categories = Category.all
     @products = Ordersproduct.all.where(order_id: params[:id])
     @uniq_products = Order.find(params[:id]).products.uniq
+    @order_details = Order.includes(:user).find(params[:id])
   end
 
   def new
@@ -50,12 +51,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  private
-
-  def generate_client_token
-    Braintree::ClientToken.generate
-  end
-
   def authorized
     @order = Order.find(params[:id])
     @order.status = 'Delivered'
@@ -81,6 +76,10 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:product).permit(:status)
+  end
+
+  def generate_client_token
+    Braintree::ClientToken.generate
   end
 
 end
