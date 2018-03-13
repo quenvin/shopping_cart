@@ -1,0 +1,39 @@
+<h3>Hi <%= @user.name %>,</h3>
+<br>
+<h3>Payment Is Successful</h3>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3 border-bottom mb-0">
+      <h5>Transaction ID: <strong><%= @order_details.transaction_num %></strong></h5>
+      <h5>Executed by: <strong><%= @order_details.user.name %></strong></h5>
+      <h5>User ID: <strong><%= @order_details.user_id%></strong></h5>
+      <h5>Created DateTime: <strong><%= @order_details.created_at.strftime("%d/%m/%Y, %I:%M%p") %></strong></h5>
+    </div>
+  </div>
+
+  <% total_price = 0 %>
+  <% @uniq_products.each do |product| %>
+    <div class="row">
+      <div class="col-md-6 offset-md-3 border-top border-bottom mb-0">
+        <table width="100%"><tr>
+          <td width="80%" class="pl-4">
+            <p><strong>Name: </strong><%= product.name %></p>
+            <p class="card-subtitle mb-2 text-muted"><%= number_to_currency(price =product.price) %> each</p>
+            <p><strong>Quantity: </strong><%= qty = @products.where(product_id: product).count %></p>
+            <p><strong>Sub-Total: </strong><%= number_to_currency(subtotal = price * qty) %></p>
+            <% total_price = total_price + subtotal %>
+          </td>
+        </tr></table>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <p><strong>Grand Total: </strong><%= number_to_currency(total_price) %></p>
+    </div>
+  </div>
+
+
+</div>

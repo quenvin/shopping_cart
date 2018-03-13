@@ -42,6 +42,7 @@ class OrdersController < ApplicationController
         end
       end
       $redis.del current_user.id
+      OrderMailer.payment_success_email(current_user).deliver_later 
       redirect_to root_url, notice: "Congraulations! Your transaction has been successfully!"
     else
       flash[:alert] = "Something went wrong while processing your transaction. Please try again!"
@@ -54,6 +55,7 @@ class OrdersController < ApplicationController
   def authorized
     @order = Order.find(params[:id])
     @order.status = 'Delivered'
+    OrderMailer.delivered_email(current_user).deliver_later 
     if @order.save
       redirect_to user_orders_path
       flash[:notice] = 'Order ID: ' + @order.id.to_s + ' authorized' 
@@ -66,6 +68,7 @@ class OrdersController < ApplicationController
   def unauthorized
     @order = Order.find(params[:id])
     @order.status = 'Failed'
+    OrderMailer.rejected_email(current_user).deliver_later 
     if @order.save
       redirect_to user_orders_path
       flash[:alert] = 'Order ID: ' + @order.id.to_s + ' rejected' 
