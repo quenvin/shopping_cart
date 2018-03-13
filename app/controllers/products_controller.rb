@@ -56,7 +56,9 @@ class ProductsController < ApplicationController
 
   def add_cart
     $redis.hincrby current_user.id, params[:id], 1
-    redirect_to cart_user_path(current_user)
+    product = Product.find(params[:id])
+    flash[:notice] = product.name + " added to cart"
+    redirect_to request.referrer
   end
 
   def remove_cart

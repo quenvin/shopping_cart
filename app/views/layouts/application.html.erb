@@ -76,7 +76,13 @@
                 </li>
               <% else %>
                 <li class="nav-item nav-link">
-                  <%= link_to 'Cart', cart_user_path(current_user), class: "navbar-items"%>
+                  <% cart_count = 0 %>
+                  <% cart_items = $redis.hgetall current_user.id %>
+                  <% cart_items.each do |c| %>
+                    <% item_count = c[1].to_i %>
+                    <% cart_count += item_count %>
+                  <% end %>
+                  <%= link_to "Cart (#{cart_count})", cart_user_path(current_user), class: "navbar-items"%>
                 </li>
               <% end %>
 
