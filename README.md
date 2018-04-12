@@ -2,7 +2,7 @@
 
 # Shopping Cart
 
-This is a shopping cart application. To visit this site, [AppName](https://ac-shopping-cart.herokuapp.com)
+This is a shopping cart application. To visit this site, [Click here](https://ac-shopping-cart.herokuapp.com)
 
 # Setup
 
