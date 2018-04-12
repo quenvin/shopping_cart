@@ -21,3 +21,9 @@ bundle
 ```
 rake db:create db:migrate db:seed
 ```
+#To try out admin functions, please login using the following
+Email: admin@admin.com
+password: 123456
+
+#To test out payments, please use the following test credentials provided by Braintree
+https://developers.braintreepayments.com/guides/credit-cards/testing-go-live/php
