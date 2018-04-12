@@ -8,7 +8,7 @@ This is a shopping cart application. To visit this site, [Click here](https://ac
 
 1. Clone the application into the selected folder.
 ```
-git clone https://github.com/Fredricktgl/shopping_cart.git
+git clone https://github.com/quenvin/shopping_cart.git
 ```
 
 2. Run bundle 

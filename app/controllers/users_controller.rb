@@ -10,4 +10,8 @@ class UsersController < ApplicationController
     @cart = $redis.hgetall current_user.id
   end
 
+  def destroy
+    redirect_to root_path if current_user.destroy
+  end
+
 end
